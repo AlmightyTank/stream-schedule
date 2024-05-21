@@ -53,9 +53,9 @@
       .then(data => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(data, 'text/html');
-        const scheduleDiv = doc.querySelector('.Layout-sc-1xcs6mc-0.fWObdL');
+        const scheduleDiv = doc.querySelector('[data-a-target="schedule"]');
         if (scheduleDiv) {
-          const scheduleItems = scheduleDiv.querySelectorAll('.your-schedule-item-class'); // Adjust selector to match the actual items
+          const scheduleItems = scheduleDiv.querySelectorAll('.ScTitle-sc-1en8rwk-3'); // Adjust selector to match the actual items
           let htmlContent = '';
           scheduleItems.forEach(item => {
             const title = item.querySelector('.your-title-class').innerText;
