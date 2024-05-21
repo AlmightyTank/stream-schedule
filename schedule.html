@@ -1,83 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stream Schedule</title>
-  <style>
-    body {
-      background-color: rgba(0, 0, 0, 0); /* Transparent background */
-      color: white; /* Text color */
-      font-family: Arial, sans-serif;
-      font-size: 20px;
-      text-align: center;
-    }
-    
-    #schedule {
-      margin: 20px;
-    }
-    
-    .schedule-block {
-      background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
-      margin: 10px auto;
-      padding: 10px;
-      border-radius: 5px;
-      width: fit-content;
-      display: inline-block;
-    }
-    
-    .schedule-block div {
-      margin: 5px 0;
-    }
-    
-    .schedule-title {
-      font-weight: bold;
-      font-size: 1.2em;
-    }
-    
-    .schedule-time {
-      font-size: 1em;
-    }
-    
-    .schedule-stadium {
-      font-size: 0.9em;
-      color: #ccc;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitch Schedule</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@400;700&display=swap">
+    <style>
+        /* CSS for styling the schedule */
+        body {
+            font-family: 'Roboto', sans-serif; /* Apply Roboto font to body text */
+            font-size: 18px; /* Increased font size for better legibility */
+            color: #fff; /* White text color */
+            background-color: rgba(0, 0, 0, 0); /* Transparent background */
+            text-align: center;
+            line-height: 1.6; /* Increased line height for better readability */
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif; /* Apply Montserrat font to headings */
+            font-size: 28px; /* Increased font size for headings */
+            margin-bottom: 15px; /* Add spacing below headings */
+            color: #fff; /* White text color */
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Add an outline */
+        }
+
+        .schedule-container {
+            text-align: center;
+        }
+
+        .schedule-day {
+            margin-bottom: 30px; /* Increased margin for better separation between days */
+        }
+
+        .schedule-event {
+            margin-bottom: 15px; /* Increased margin between events */
+        }
+
+        .event-title {
+            font-weight: bold;
+        }
+
+        .event-time {
+            color: #666;
+        }
+
+        .schedule-block {
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            margin: 20px auto; /* Increased margin around schedule blocks */
+            padding: 15px; /* Increased padding within schedule blocks */
+            border-radius: 5px;
+            width: fit-content;
+            display: inline-block;
+        }
+
+        .schedule-block div {
+            margin: 8px 0; /* Increased margin between elements within schedule blocks */
+        }
+
+        .schedule-title {
+            font-weight: bold;
+            font-size: 1.4em; /* Increased font size for event titles */
+        }
+
+        .schedule-time {
+            font-size: 1.1em; /* Increased font size for event times */
+        }
+
+        .schedule-stadium {
+            font-size: 1em; /* Increased font size for stadium information */
+            color: #ccc;
+        }
+
+        /* Style for the days of the week */
+        .day-of-week {
+            color: #333; /* Dark gray text color */
+            font-weight: bold;
+            font-size: 32px; /* Increased font size for days of the week */
+            margin-top: 0; /* Remove default margin from h2 */
+        }
+    </style>
 </head>
 <body>
-  <div id="schedule">Loading schedule...</div>
-  <script>
-    fetch('https://www.twitch.tv/amightytank/schedule')
-      .then(response => response.text())
-      .then(data => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(data, 'text/html');
-        const scheduleDiv = doc.querySelector('[data-a-target="schedule"]');
-        if (scheduleDiv) {
-          const scheduleItems = scheduleDiv.querySelectorAll('.Layout-sc-1xcs6mc-0.fWObdL'); // Adjust selector to match the actual items
-          let htmlContent = '';
-          scheduleItems.forEach(item => {
-            const title = item.querySelector('.your-title-class').innerText;
-            const time = item.querySelector('.your-time-class').innerText;
-            const stadium = item.querySelector('.your-stadium-class').innerText;
-            htmlContent += `
-              <div class="schedule-block">
-                <div class="schedule-title">${title}</div>
-                <div class="schedule-time">${time}</div>
-                <div class="schedule-stadium">${stadium}</div>
-              </div>
-            `;
-          });
-          document.getElementById('schedule').innerHTML = htmlContent;
-        } else {
-          document.getElementById('schedule').innerText = 'Schedule not found.';
-        }
-      })
-      .catch(error => {
-        console.error('Error fetching schedule:', error);
-        document.getElementById('schedule').innerText = 'Error loading schedule.';
-      });
-  </script>
+    <div class="schedule-container">
+        <div class="schedule-day">
+            <h2 class="day-of-week">Monday</h2>
+            <div class="schedule-block">
+                <div class="schedule-title">Escape from Tarkov - Questing</div>
+                <div class="schedule-time">10 PM - 2 AM CDT</div>
+            </div>
+            <!-- Add more events for Monday if needed -->
+        </div>
+
+        <div class="schedule-day">
+            <h2 class="day-of-week">Tuesday</h2>
+            <div class="schedule-block">
+                <div class="schedule-title">Escape from Tarkov - Helping Timmies</div>
+                <div class="schedule-time">10 PM - 2 AM CDT</div>
+            </div>
+            <!-- Add more events for Tuesday if needed -->
+        </div>
+
+        <div class="schedule-day">
+            <h2 class="day-of-week">Wednesday</h2>
+            <div class="schedule-block">
+                <div class="schedule-title">Escape from Tarkov - PVP Seeker</div>
+                <div class="schedule-time">10 PM - 2 AM CDT</div>
+            </div>
+            <!-- Add more events for Wednesday if needed -->
+        </div>
+
+        <div class="schedule-day">
+            <h2 class="day-of-week">Thursday</h2>
+            <div class="schedule-block">
+                <div class="schedule-title">Escape from Tarkov - Questing</div>
+                <div class="schedule-time">10 PM - 2 AM CDT</div>
+            </div>
+            <!-- Add more events for Thursday if needed -->
+        </div>
+
+        <div class="schedule-day">
+            <h2 class="day-of-week">Friday</h2>
+            <div class="schedule-block">
+                <div class="schedule-title">Escape from Tarkov - Sub Day</div>
+                <div class="schedule-time">10 PM - 2 AM CDT</div>
+            </div>
+            <!-- Add more events for Friday if needed -->
+        </div>
+
+        <div class="schedule-day">
+            <h2 class="day-of-week">Saturday</h2>
+            <div class="schedule-block">
+                <div class="schedule-title">Offline</div>
+                <div class="schedule-time">Maybe Maybe not</div>
+            </div>
+            <!-- Add more events for Saturday if needed -->
+        </div>
+
+        <div class="schedule-day">
+            <h2 class="day-of-week">Sunday</h2>
+            <div class="schedule-block">
+                <div class="schedule-title">Offline</div>
+                <div class="schedule-time">Maybe Maybe not</div>
+            </div>
+            <!-- Add more events for Sunday if needed -->
+        </div>
+
+    </div>
 </body>
 </html>
