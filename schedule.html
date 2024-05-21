@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stream Schedule</title>
+  <style>
+    body {
+      background-color: rgba(0, 0, 0, 0); /* Transparent background */
+      color: white; /* Text color */
+      font-family: Arial, sans-serif;
+      font-size: 20px;
+      text-align: center;
+    }
+    
+    #schedule {
+      margin: 20px;
+    }
+    
+    .schedule-block {
+      background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+      margin: 10px auto;
+      padding: 10px;
+      border-radius: 5px;
+      width: fit-content;
+      display: inline-block;
+    }
+    
+    .schedule-block div {
+      margin: 5px 0;
+    }
+    
+    .schedule-title {
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    
+    .schedule-time {
+      font-size: 1em;
+    }
+    
+    .schedule-stadium {
+      font-size: 0.9em;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div id="schedule">Loading schedule...</div>
+  <script>
+    fetch('https://www.twitch.tv/amightytank/schedule')
+      .then(response => response.text())
+      .then(data => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data, 'text/html');
+        const scheduleDiv = doc.querySelector('.Layout-sc-1xcs6mc-0.fWObdL');
+        if (scheduleDiv) {
+          const scheduleItems = scheduleDiv.querySelectorAll('.your-schedule-item-class'); // Adjust selector to match the actual items
+          let htmlContent = '';
+          scheduleItems.forEach(item => {
+            const title = item.querySelector('.your-title-class').innerText;
+            const time = item.querySelector('.your-time-class').innerText;
+            const stadium = item.querySelector('.your-stadium-class').innerText;
+            htmlContent += `
+              <div class="schedule-block">
+                <div class="schedule-title">${title}</div>
+                <div class="schedule-time">${time}</div>
+                <div class="schedule-stadium">${stadium}</div>
+              </div>
+            `;
+          });
+          document.getElementById('schedule').innerHTML = htmlContent;
+        } else {
+          document.getElementById('schedule').innerText = 'Schedule not found.';
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching schedule:', error);
+        document.getElementById('schedule').innerText = 'Error loading schedule.';
+      });
+  </script>
+</body>
+</html>
